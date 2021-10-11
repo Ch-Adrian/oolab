@@ -10,7 +10,7 @@ public class World {
     }
 
     public static void run(){
-
+        System.out.println("Zwierzak idzie do przodu");
     }
 
 }
