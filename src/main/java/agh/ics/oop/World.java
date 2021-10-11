@@ -2,11 +2,29 @@ package agh.ics.oop;
 
 public class World {
     public static void main(String[] args) {
-        System.out.println("Start systemu");
-        System.out.println(args.length);
-        run(new String[]{"1", "2", "3"});
+        System.out.println("Start");
+        //run(new String[]{"1", "2", "3"});
 
-        System.out.println("Koniec systemu");
+        for(String dir: args){
+            switch(dir){
+                case "f":
+                    System.out.println("Zwierzak idzie do przodu.");
+                    break;
+                case "b":
+                    System.out.println("Zwierzak idzie do tyłu");
+                    break;
+                case "r":
+                    System.out.println("Zwierzak skręca w prawo");
+                    break;
+                case "l":
+                    System.out.println("Zwierzak skręca w lewo");
+                    break;
+                default:
+
+            }
+        }
+
+        System.out.println("Stop");
     }
 
     public static void run(String[] arr){
