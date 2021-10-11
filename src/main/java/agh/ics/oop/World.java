@@ -3,7 +3,7 @@ package agh.ics.oop;
 public class World {
     public static void main(String[] args) {
         System.out.println("Start systemu");
-
+        System.out.println(args.length);
         run(new String[]{"1", "2", "3"});
 
         System.out.println("Koniec systemu");
