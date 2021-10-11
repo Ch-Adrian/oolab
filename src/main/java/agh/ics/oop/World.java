@@ -12,7 +12,7 @@ public class World {
     public static void run(String[] arr){
         System.out.println("Zwierzak idzie do przodu");
         for(String str: arr){
-            System.out.println(str);
+            System.out.print(str + ", ");
         }
     }
 
