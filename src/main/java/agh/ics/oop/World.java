@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 public class World {
+    @SuppressWarnings("EnhancedSwitchMigration")
     public static void main(String[] args) {
         System.out.println("Start");
         //run(new String[]{"1", "2", "3"});
