@@ -12,11 +12,36 @@ public class World {
 
     public static void main(String[] args) {
 
-        Vector2d position1 = new Vector2d(1,2);
+        /*Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);
         System.out.println(position2);
-        System.out.println(position1.add(position2));
+        System.out.println(position1.add(position2));*/
+
+        MapDirection n = MapDirection.NORTH;
+        MapDirection s = MapDirection.SOUTH;
+        MapDirection w = MapDirection.WEST;
+        MapDirection e = MapDirection.EAST;
+
+        System.out.println(n.toString());
+        System.out.println(s.toString());
+        System.out.println(w.toString());
+        System.out.println(e.toString());
+        System.out.println();
+        System.out.println(n.next().toString());
+        System.out.println(s.next().toString());
+        System.out.println(w.next().toString());
+        System.out.println(e.next().toString());
+        System.out.println();
+        System.out.println(n.previous().toString());
+        System.out.println(s.previous().toString());
+        System.out.println(w.previous().toString());
+        System.out.println(e.previous().toString());
+        System.out.println();
+        System.out.println(n.toUnitVector().toString());
+        System.out.println(s.toUnitVector().toString());
+        System.out.println(w.toUnitVector().toString());
+        System.out.println(e.toUnitVector().toString());
 
 
         /*Vector2d v = new Vector2d(1,2);
