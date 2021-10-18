@@ -3,6 +3,7 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Vector;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -10,9 +11,14 @@ import java.util.stream.Stream;
 public class World {
 
     public static void main(String[] args) {
-        System.out.println("Start");
+
+        /*Vector2d v = new Vector2d(1,2);
+        Vector2d v2 = new Vector2d(1,2);
+        System.out.println(v.equals(v2));*/
+
+       /* System.out.println("Start");
         run(args);
-        System.out.println("Stop");
+        System.out.println("Stop");*/
     }
 
     public static void run(String[] arr){
