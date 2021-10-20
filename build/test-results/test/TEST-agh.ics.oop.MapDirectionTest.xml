@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.MapDirectionTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-10-20T08:12:07" hostname="DESKTOP-ODIJNVT" time="0.065">
+<testsuite name="agh.ics.oop.MapDirectionTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2021-10-20T08:20:52" hostname="DESKTOP-ODIJNVT" time="0.056">
   <properties/>
-  <testcase name="testNext()" classname="agh.ics.oop.MapDirectionTest" time="0.065"/>
+  <testcase name="testNext()" classname="agh.ics.oop.MapDirectionTest" time="0.05"/>
+  <testcase name="testPrevious()" classname="agh.ics.oop.MapDirectionTest" time="0.002"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
