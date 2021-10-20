@@ -7,6 +7,7 @@ import java.util.Vector;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import static java.lang.System.out;
 
 public class World {
 
