@@ -15,5 +15,27 @@ public class Animal {
         return stringBuilder.toString();
     }
 
+    private boolean isInside(Vector2d pos){
+        return pos.precedes(new Vector2d(4,4)) && pos.follows(new Vector2d(0,0));
+    }
+
+    public void move(MoveDirection direction){
+        switch(direction){
+            case RIGHT -> orientation = orientation.next();
+            case LEFT -> orientation = orientation.previous();
+            case FORWARD -> {
+                if(isInside(position.add(orientation.toUnitVector())))
+                {
+                    position = position.add(orientation.toUnitVector());
+                }
+            }
+            case BACKWARD -> {
+                if( isInside(position.subtract(orientation.toUnitVector()))){
+                    position = position.subtract(orientation.toUnitVector());
+                }
+            }
+        }
+    }
+
 
 }
