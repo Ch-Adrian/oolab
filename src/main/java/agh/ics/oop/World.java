@@ -16,6 +16,11 @@ public class World {
         Animal animal = new Animal();
         out.println(animal.toString());
 
+        animal.move(MoveDirection.RIGHT);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        animal.move(MoveDirection.FORWARD);
+        out.println(animal.toString());
 
         /*Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
