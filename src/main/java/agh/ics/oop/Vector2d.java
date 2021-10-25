@@ -44,7 +44,7 @@ public class Vector2d {
     }
 
     Vector2d subtract(Vector2d other){
-        return new Vector2d(this.x - other.y, this.y - other.y);
+        return new Vector2d(this.x - other.x, this.y - other.y);
     }
 
     public boolean equals(Object other){
