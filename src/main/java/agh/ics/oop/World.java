@@ -19,7 +19,7 @@ public class World {
         System.out.println(position2);
         System.out.println(position1.add(position2));*/
 
-        MapDirection n = MapDirection.NORTH;
+        /*MapDirection n = MapDirection.NORTH;
         MapDirection s = MapDirection.SOUTH;
         MapDirection w = MapDirection.WEST;
         MapDirection e = MapDirection.EAST;
@@ -42,7 +42,7 @@ public class World {
         System.out.println(n.toUnitVector().toString());
         System.out.println(s.toUnitVector().toString());
         System.out.println(w.toUnitVector().toString());
-        System.out.println(e.toUnitVector().toString());
+        System.out.println(e.toUnitVector().toString());*/
 
 
         /*Vector2d v = new Vector2d(1,2);
@@ -92,5 +92,6 @@ public class World {
         Object[] dir = stream.toArray();
         System.out.println(last);
     }
+
 
 }

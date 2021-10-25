@@ -7,7 +7,7 @@ public class Vector2d {
     final int x;
     final int y;
 
-    Vector2d(int x, int y){
+    Vector2d(int x, int y) {
         this.x = x;
         this.y = y;
     }
