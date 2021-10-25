@@ -15,11 +15,12 @@ public class World {
 
         Animal animal = new Animal();
         out.println(animal.toString());
-
-        animal.move(MoveDirection.RIGHT);
-        animal.move(MoveDirection.FORWARD);
-        animal.move(MoveDirection.FORWARD);
-        animal.move(MoveDirection.FORWARD);
+        String[] move = new String[4];
+        move[0] = "r"; move[1] = "f"; move[2] = "f"; move[3] = "f";
+        MoveDirection[] moveDirections = OptionsParser.parse(move);
+        for(MoveDirection mD: moveDirections){
+            animal.move(mD);
+        }
         out.println(animal.toString());
 
 
