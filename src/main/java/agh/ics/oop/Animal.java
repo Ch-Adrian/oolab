@@ -4,14 +4,30 @@ public class Animal {
 
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2,2);
+    private IWorldMap map = null;
+
+    public Animal(){
+
+    }
+
+    public Animal(IWorldMap map){
+        this.map = map;
+    }
+
+    public Animal(IWorldMap map, Vector2d initialPosition){
+        this.map = map;
+        this.position = initialPosition;
+    }
 
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("Position: ");
-        stringBuilder.append(position.toString());
-        stringBuilder.append(" Orientation: ");
-        stringBuilder.append(orientation.toString());
+        switch(orientation){
+            case NORTH -> stringBuilder.append("N");
+            case EAST -> stringBuilder.append("E");
+            case WEST -> stringBuilder.append("W");
+            case SOUTH -> stringBuilder.append("S");
+        }
         return stringBuilder.toString();
     }
 
@@ -24,14 +40,26 @@ public class Animal {
             case RIGHT -> orientation = orientation.next();
             case LEFT -> orientation = orientation.previous();
             case FORWARD -> {
-                if(isInside(position.add(orientation.toUnitVector())))
-                {
-                    position = position.add(orientation.toUnitVector());
+                if( map == null ){
+                    if (isInside(position.add(orientation.toUnitVector()))) {
+                        position = position.subtract(orientation.toUnitVector());
+                    }
+                }else {
+                    if (map.canMoveTo(position.add(orientation.toUnitVector()))) {
+                        position = position.add(orientation.toUnitVector());
+                    }
                 }
             }
             case BACKWARD -> {
-                if( isInside(position.subtract(orientation.toUnitVector()))){
-                    position = position.subtract(orientation.toUnitVector());
+                if( map == null ){
+                    if (isInside(position.subtract(orientation.toUnitVector()))) {
+                        position = position.subtract(orientation.toUnitVector());
+                    }
+                }else {
+                    if (map.canMoveTo(position.subtract(orientation.toUnitVector()))){
+                        position = position.subtract(orientation.toUnitVector());
+                    }
+
                 }
             }
         }
