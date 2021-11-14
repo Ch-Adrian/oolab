@@ -19,6 +19,12 @@ public class Animal {
         this.position = initialPosition;
     }
 
+    public Animal(IWorldMap map, Vector2d initialPosition, MapDirection mD){
+        this.map = map;
+        this.position = initialPosition;
+        this.orientation = mD;
+    }
+
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();

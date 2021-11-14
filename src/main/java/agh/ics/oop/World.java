@@ -13,7 +13,7 @@ public class World {
 
     public static void main(String[] args) {
 
-
+/*
         Animal animal = new Animal();
         out.println(animal.toString());
         String[] move = new String[]{"f","f","r","f","f","q","r","f","f","f","f"};
@@ -21,11 +21,15 @@ public class World {
         for(MoveDirection mD: moveDirections){
             animal.move(mD);
         }
-        out.println(animal.toString());
+        out.println(animal.toString());*/
+
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
 
 
-
-         
         /*Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);

@@ -4,15 +4,12 @@ import java.util.ArrayList;
 
 public class SimulationEngine implements IEngine{
 
-    private static ArrayList<Animal> arrayAni = new ArrayList<>();
+    private ArrayList<Animal> arrayAni = new ArrayList<>();
 
     public IWorldMap map;
     MoveDirection[] moveDirections;
 
     public SimulationEngine(MoveDirection[] tab, IWorldMap map, Vector2d[] vecTab){
-        for(MoveDirection dir:tab){
-            System.out.println(dir);
-        }
         this.map = map;
         this.moveDirections = tab;
         for(int i = 0; i<vecTab.length; i++){
