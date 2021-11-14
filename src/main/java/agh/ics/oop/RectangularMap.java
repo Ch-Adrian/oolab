@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RectangularMap implements IWorldMap{
@@ -33,7 +34,8 @@ public class RectangularMap implements IWorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if(position.x < this.width && position.y < this.height && (map[position.x][position.y] == null)) return true;
+        refresh();
+        if(position.x >= 0 && position.y >= 0 && position.x < this.width && position.y < this.height && (map[position.x][position.y] == null)) return true;
         else return false;
     }
 
@@ -46,22 +48,53 @@ public class RectangularMap implements IWorldMap{
         return false;
     }
 
+    public boolean erase(Animal animal){
+        if(isOccupied(animal.getPosition())){
+            if(map[animal.getPosition().x][animal.getPosition().y].equals(animal)){
+                map[animal.getPosition().x][animal.getPosition().y] = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public boolean isOccupied(Vector2d position) {
-        if(position.x < this.width && position.y < this.height && (map[position.x][position.y] != null)) return true;
+        refresh();
+        if(position.x >= 0 && position.y >= 0 && position.x < this.width && position.y < this.height && (map[position.x][position.y] != null)) return true;
         return false;
     }
 
     @Override
     public Object objectAt(Vector2d position) {
-        if(position.x < this.width && position.y < this.height){
+        refresh();
+        if(position.x >= 0 && position.y >= 0 && position.x < this.width && position.y < this.height){
             return map[position.x][position.y];
         }
         return null;
     }
 
+    private void refresh(){
+
+        ArrayList<Animal> aAnimal = new ArrayList<>();
+
+        for(int i = 0; i< width; i++){
+            for(int j = 0; j< height; j++){
+                if( map[i][j] != null){
+                    aAnimal.add(map[i][j]);
+                }
+                map[i][j] = null;
+            }
+        }
+        for(int i = 0; i<aAnimal.size(); i++){
+            this.place(aAnimal.get(i));
+        }
+
+    }
+
     @Override
     public String toString(){
+        refresh();
         MapVisualizer mV = new MapVisualizer(this);
         return mV.draw(new Vector2d(0,0), new Vector2d(this.width - 1,this.height-1));
     }
