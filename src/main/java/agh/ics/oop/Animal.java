@@ -25,6 +25,13 @@ public class Animal {
         this.orientation = mD;
     }
 
+    boolean isAt(Vector2d position){
+        if(this.position.x == position.x && this.position.y == position.y){
+            return true;
+        }
+        return false;
+    }
+
     @Override
     public String toString(){
         StringBuilder stringBuilder = new StringBuilder();
