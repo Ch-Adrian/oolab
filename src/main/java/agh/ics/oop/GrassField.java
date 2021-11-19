@@ -3,45 +3,19 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class GrassField implements IWorldMap{
+public class GrassField extends AbstractWorldMap{
 
     private int n;
     private ArrayList<Grass> grasses = new ArrayList<>();
-    private ArrayList<Animal> animals = new ArrayList<>();
+
     public GrassField(int num){
         this.n = num;
         this.planting();
     }
 
     @Override
-    public boolean canMoveTo(Vector2d position) {
-        for(Animal a: animals){
-            if(a.getPosition().x == position.x && a.getPosition().y == position.y){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    @Override
-    public boolean place(Animal animal) {
-        Vector2d position = animal.getPosition();
-        for(Animal a: animals){
-            if(a.getPosition().x == position.x && a.getPosition().y == position.y){
-                return false;
-            }
-        }
-        animals.add(animal);
-        return true;
-    }
-
-    @Override
     public boolean isOccupied(Vector2d position) {
-        for(Animal a: animals){
-            if(a.getPosition().x == position.x && a.getPosition().y == position.y){
-                return true;
-            }
-        }
+        if(super.isOccupied(position)) return true;
         for(Grass g: grasses){
             if( g.getPosition().x == position.x && g.getPosition().y == position.y){
                 return true;
@@ -52,11 +26,8 @@ public class GrassField implements IWorldMap{
 
     @Override
     public Object objectAt(Vector2d position) {
-        for(Animal a: animals){
-            if(a.getPosition().x == position.x && a.getPosition().y == position.y){
-                return a;
-            }
-        }
+        Object ani = super.objectAt(position);
+        if( ani != null) return ani;
         for(Grass g: grasses){
             if( g.getPosition().x == position.x && g.getPosition().y == position.y){
                 return g;
@@ -85,9 +56,7 @@ public class GrassField implements IWorldMap{
         }
     }
 
-    @Override
-    public String toString(){
-        MapVisualizer mV = new MapVisualizer(this);
+    protected int[] findCorner(){
         Vector2d lower = new Vector2d(grasses.get(0).getPosition().x, grasses.get(0).getPosition().y);
         Vector2d higher = new Vector2d(grasses.get(0).getPosition().x, grasses.get(0).getPosition().y);
         int lowest_x = lower.x;
@@ -124,8 +93,8 @@ public class GrassField implements IWorldMap{
                 highest_y = g.getPosition().y;
             }
         }
-
-        return mV.draw(new Vector2d(lowest_x, lowest_y), new Vector2d(highest_x, highest_y));
+        int[] arr = {lowest_x, lowest_y, highest_x, highest_y};
+        return arr;
     }
 
     public static void main(String[] args) {

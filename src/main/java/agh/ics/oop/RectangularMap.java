@@ -3,12 +3,10 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RectangularMap implements IWorldMap{
+public class RectangularMap extends AbstractWorldMap{
 
     private int width;
     private int height;
-
-    private ArrayList<Animal> animals = new ArrayList<>();
 
     public RectangularMap(int width, int height){
         if(width >=1 ) {
@@ -33,55 +31,33 @@ public class RectangularMap implements IWorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
-        if(isInside(position)){
-            for(Animal ani: animals){
-                if(ani.getPosition().x == position.x && ani.getPosition().y == position.y){
-                    return false;
-                }
-            }
-            return true;
+        if (!isInside(position)) {
+            return false;
         }
-        else return false;
+        return super.canMoveTo(position);
     }
 
     @Override
     public boolean place(Animal animal) {
-        if(!isOccupied(animal.getPosition())){
-            animals.add(animal);
-            return true;
-        }
-        return false;
+        if(!isInside(animal.getPosition())){ return false; }
+        return super.place(animal);
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        if(isInside(position)){
-            for(Animal ani: animals){
-                if(ani.getPosition().x == position.x && ani.getPosition().y == position.y){
-                    return true;
-                }
-            }
-            return false;
-        }
-        else return false;
+        if(!isInside(position)){ return false; }
+        return super.isOccupied(position);
     }
 
     @Override
     public Object objectAt(Vector2d position) {
-        if(isInside(position)){
-            for(Animal ani: animals){
-                if(ani.getPosition().x == position.x && ani.getPosition().y == position.y){
-                    return ani;
-                }
-            }
-        }
-        return null;
+        if(!isInside(position)){ return null; }
+        return super.objectAt(position);
     }
 
-    @Override
-    public String toString(){
-        MapVisualizer mV = new MapVisualizer(this);
-        return mV.draw(new Vector2d(0,0), new Vector2d(this.width - 1,this.height-1));
+    protected int[] findCorner(){
+        int[] arr = {0, 0, this.width - 1, this.height - 1};
+        return arr;
     }
 
     public static void main(String[] args) {
