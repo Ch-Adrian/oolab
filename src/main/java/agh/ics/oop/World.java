@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import static java.lang.System.out;
+import static java.lang.System.setOut;
 
 public class World {
 
@@ -23,12 +24,21 @@ public class World {
         }
         out.println(animal.toString());*/
 
+        /*
         MoveDirection[] directions = new OptionsParser().parse(args);
         IWorldMap map = new RectangularMap(10, 5);
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
         IEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
+        engine.run();*/
 
+        String[] move2 = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+        MoveDirection[] moveDirections = OptionsParser.parse(move2);
+        IWorldMap map2 = new GrassField(10);
+        Vector2d[] positions2 = { new Vector2d(2,2), new Vector2d(3,4)};
+        IEngine engine2 = new SimulationEngine(moveDirections, map2, positions2);
+        //out.println(map2);
+        engine2.run();
+        //out.println(map2);
 
         /*Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
