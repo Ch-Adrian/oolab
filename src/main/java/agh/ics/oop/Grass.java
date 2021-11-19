@@ -14,7 +14,9 @@ public class Grass {
 
     @Override
     public String toString(){
-        return "*";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("*");
+        return stringBuilder.toString();
     }
 
 }
