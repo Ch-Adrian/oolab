@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public abstract class AbstractWorldMap implements IWorldMap{
+public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
 
     //protected ArrayList<Animal> animals = new ArrayList<>();
     protected Map<Vector2d, Animal> animals = new HashMap<>();
@@ -22,6 +22,7 @@ public abstract class AbstractWorldMap implements IWorldMap{
     public boolean place(Animal animal) {
         if(isOccupied(animal.getPosition())) { return false; }
         animals.put(animal.getPosition(), animal);
+        animal.addObserver(this);
         return true;
     }
 
@@ -38,14 +39,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
         return animals.get(position);
     }
 
-    public void changePosition(Vector2d vecStart, Vector2d vecEnd){
-        if(!isOccupied(vecEnd)) {
-            Animal a = animals.get(vecStart);
-            animals.put(vecEnd, a);
-            animals.remove(vecStart);
-        }
-    }
-
     protected abstract int[] findCorner();
 
     @Override
@@ -53,6 +46,12 @@ public abstract class AbstractWorldMap implements IWorldMap{
         MapVisualizer mV = new MapVisualizer(this);
         int[] arr = findCorner();
         return mV.draw(new Vector2d(arr[0], arr[1]), new Vector2d(arr[2], arr[3]));
+    }
+
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        Animal a = animals.get(oldPosition);
+        animals.put(newPosition, a);
+        animals.remove(oldPosition);
     }
 
 }

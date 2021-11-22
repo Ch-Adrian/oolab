@@ -1,10 +1,14 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Animal {
 
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2,2);
     private IWorldMap map = null;
+    private List<IPositionChangeObserver> observerList = new ArrayList<>();
 
     public Animal(){
 
@@ -55,10 +59,12 @@ public class Animal {
             case FORWARD -> {
                 if( map == null ){
                     if (isInside(position.add(orientation.toUnitVector()))) {
-                        position = position.subtract(orientation.toUnitVector());
+                        positionChanged(position, position.add(orientation.toUnitVector()));
+                        position = position.add(orientation.toUnitVector());
                     }
                 }else {
                     if (map.canMoveTo(position.add(orientation.toUnitVector()))) {
+                        positionChanged(position, position.add(orientation.toUnitVector()));
                         position = position.add(orientation.toUnitVector());
                     }
                 }
@@ -66,10 +72,12 @@ public class Animal {
             case BACKWARD -> {
                 if( map == null ){
                     if (isInside(position.subtract(orientation.toUnitVector()))) {
+                        positionChanged(position, position.subtract(orientation.toUnitVector()));
                         position = position.subtract(orientation.toUnitVector());
                     }
                 }else {
                     if (map.canMoveTo(position.subtract(orientation.toUnitVector()))){
+                        positionChanged(position, position.subtract(orientation.toUnitVector()));
                         position = position.subtract(orientation.toUnitVector());
                     }
 
@@ -78,9 +86,22 @@ public class Animal {
         }
     }
 
+    private void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        for(IPositionChangeObserver observer: observerList){
+            observer.positionChanged(oldPosition, newPosition);
+        }
+    }
+
     public Vector2d getPosition(){
         return position;
     }
 
+    public void addObserver(IPositionChangeObserver observer){
+        observerList.add(observer);
+    }
+
+    public void removeObserver(IPositionChangeObserver observer){
+        observerList.remove(observer);
+    }
 
 }
