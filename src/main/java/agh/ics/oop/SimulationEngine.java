@@ -27,10 +27,18 @@ public class SimulationEngine implements IEngine{
         for(int i = 0; i<moveDirections.length; i++){
             Animal inst = arrayAni.get(i % arrayAni.size());
             switch(moveDirections[i]) {
-                case BACKWARD -> inst.move(MoveDirection.BACKWARD);
-                case FORWARD -> inst.move(MoveDirection.FORWARD);
-                case LEFT -> inst.move(MoveDirection.LEFT);
-                case RIGHT -> inst.move(MoveDirection.RIGHT);
+                case BACKWARD -> {
+                    inst.move(MoveDirection.BACKWARD);
+                }
+                case FORWARD -> {
+                    inst.move(MoveDirection.FORWARD);
+                }
+                case LEFT -> {
+                    inst.move(MoveDirection.LEFT);
+                }
+                case RIGHT -> {
+                    inst.move(MoveDirection.RIGHT);
+                }
             }
 
         }

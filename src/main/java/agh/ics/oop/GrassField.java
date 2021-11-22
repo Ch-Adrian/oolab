@@ -1,12 +1,15 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class GrassField extends AbstractWorldMap{
 
     private int n;
-    private ArrayList<Grass> grasses = new ArrayList<>();
+    //private ArrayList<Grass> grasses = new ArrayList<>();
+    private Map<Vector2d, Grass> grasses = new HashMap<>();
 
     public GrassField(int num){
         this.n = num;
@@ -16,10 +19,8 @@ public class GrassField extends AbstractWorldMap{
     @Override
     public boolean isOccupied(Vector2d position) {
         if(super.isOccupied(position)) return true;
-        for(Grass g: grasses){
-            if( g.getPosition().x == position.x && g.getPosition().y == position.y){
-                return true;
-            }
+        if(grasses.get(position) != null){
+            return true;
         }
         return false;
     }
@@ -28,19 +29,12 @@ public class GrassField extends AbstractWorldMap{
     public Object objectAt(Vector2d position) {
         Object ani = super.objectAt(position);
         if( ani != null) return ani;
-        for(Grass g: grasses){
-            if( g.getPosition().x == position.x && g.getPosition().y == position.y){
-                return g;
-            }
-        }
-        return null;
+        return grasses.get(position);
     }
 
     private boolean checkPresence(int _x, int _y){
-        for(int i = 0; i<grasses.size(); i++){
-            if(grasses.get(i).getPosition().x == _x && grasses.get(i).getPosition().y == _y){
-                return true;
-            }
+        if(grasses.get(new Vector2d(_x, _y)) != null){
+            return true;
         }
         return false;
     }
@@ -52,7 +46,7 @@ public class GrassField extends AbstractWorldMap{
             int _x = Math.abs(rand.nextInt())%a;
             int _y = Math.abs(rand.nextInt())%a;
             if( checkPresence(_x, _y) ) continue;
-            grasses.add(new Grass(new Vector2d(_x, _y)));
+            grasses.put(new Vector2d(_x, _y), new Grass(new Vector2d(_x, _y)));
         }
     }
 
@@ -64,7 +58,7 @@ public class GrassField extends AbstractWorldMap{
         int highest_x = higher.x;
         int highest_y = higher.y;
 
-        for(Grass g: grasses){
+        for(Grass g: grasses.values()){
             if(g.getPosition().x < lowest_x){
                 lowest_x = g.getPosition(). x;
             }
@@ -79,7 +73,7 @@ public class GrassField extends AbstractWorldMap{
             }
         }
 
-        for(Animal g: animals){
+        for(Animal g: animals.values()){
             if(g.getPosition().x < lowest_x){
                 lowest_x = g.getPosition(). x;
             }

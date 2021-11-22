@@ -10,6 +10,7 @@ public class AnimalTest {
 
     @Test
     public void testMove(){
+        /*
         assertTrue(animal.toString().equals("Position: (2,2) Orientation: Północ"));
         animal.move(MoveDirection.RIGHT);
         assertTrue(animal.toString().equals("Position: (2,2) Orientation: Wschód"));
@@ -53,6 +54,50 @@ public class AnimalTest {
         assertTrue(animal.toString().equals("Position: (4,0) Orientation: Północ"));
         animal.move(MoveDirection.BACKWARD);
         assertTrue(animal.toString().equals("Position: (4,0) Orientation: Północ"));
+        */
 
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.RIGHT);
+        assertTrue(animal.toString().equals("E"));
+        animal.move(MoveDirection.RIGHT);
+        assertTrue(animal.toString().equals("S"));
+        animal.move(MoveDirection.RIGHT);
+        assertTrue(animal.toString().equals("W"));
+        animal.move(MoveDirection.RIGHT);
+        assertTrue(animal.toString().equals("N"));
+        animal2.move(MoveDirection.LEFT);
+        assertTrue(animal2.toString().equals("W"));
+        animal2.move(MoveDirection.LEFT);
+        assertTrue(animal2.toString().equals("S"));
+        animal2.move(MoveDirection.LEFT);
+        assertTrue(animal2.toString().equals("E"));
+        animal2.move(MoveDirection.LEFT);
+        assertTrue(animal2.toString().equals("N"));
+
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.RIGHT);
+        assertTrue(animal.toString().equals("E"));
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.toString().equals("E"));
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.toString().equals("E"));
+        animal.move(MoveDirection.FORWARD);
+        assertTrue(animal.toString().equals("E"));
+        animal.move(MoveDirection.LEFT);
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.BACKWARD);
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.BACKWARD);
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.BACKWARD);
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.BACKWARD);
+        assertTrue(animal.toString().equals("N"));
+        animal.move(MoveDirection.BACKWARD);
+        assertTrue(animal.toString().equals("N"));
     }
 }

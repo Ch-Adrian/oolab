@@ -1,17 +1,19 @@
 package agh.ics.oop;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public abstract class AbstractWorldMap implements IWorldMap{
 
-    protected ArrayList<Animal> animals = new ArrayList<>();
+    //protected ArrayList<Animal> animals = new ArrayList<>();
+    protected Map<Vector2d, Animal> animals = new HashMap<>();
 
     @Override
     public boolean canMoveTo(Vector2d position){
-        for(Animal ani: animals){
-            if(ani.getPosition().x == position.x && ani.getPosition().y == position.y){
-                return false;
-            }
+        if(animals.get(position) != null){
+            return false;
         }
         return true;
     }
@@ -19,28 +21,29 @@ public abstract class AbstractWorldMap implements IWorldMap{
     @Override
     public boolean place(Animal animal) {
         if(isOccupied(animal.getPosition())) { return false; }
-        animals.add(animal);
+        animals.put(animal.getPosition(), animal);
         return true;
     }
 
     @Override
     public boolean isOccupied(Vector2d position) {
-        for(Animal a: animals){
-            if(a.getPosition().x == position.x && a.getPosition().y == position.y){
-                return true;
-            }
+        if(animals.get(position) != null){
+            return true;
         }
         return false;
     }
 
     @Override
     public Object objectAt(Vector2d position) {
-        for(Animal a: animals){
-            if(a.getPosition().x == position.x && a.getPosition().y == position.y){
-                return a;
-            }
+        return animals.get(position);
+    }
+
+    public void changePosition(Vector2d vecStart, Vector2d vecEnd){
+        if(!isOccupied(vecEnd)) {
+            Animal a = animals.get(vecStart);
+            animals.put(vecEnd, a);
+            animals.remove(vecStart);
         }
-        return null;
     }
 
     protected abstract int[] findCorner();
