@@ -20,7 +20,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     @Override
     public boolean place(Animal animal) {
-        if(isOccupied(animal.getPosition())) { return false; }
+        if(isOccupied(animal.getPosition())) {
+            throw new IllegalArgumentException("Position: ("+animal.getPosition().x + "," + animal.getPosition().y + ") is taken.");
+        }
         animals.put(animal.getPosition(), animal);
         animal.addObserver(this);
         return true;

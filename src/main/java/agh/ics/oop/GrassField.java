@@ -91,15 +91,4 @@ public class GrassField extends AbstractWorldMap{
         return arr;
     }
 
-    public static void main(String[] args) {
-        GrassField grassField = new GrassField(10);
-        grassField.place(new Animal(grassField, new Vector2d(1,1)));
-        grassField.place(new Animal(grassField, new Vector2d(10,3)));
-        grassField.place(new Animal(grassField, new Vector2d(3,-4)));
-        grassField.place(new Animal(grassField, new Vector2d(7,-1)));
-        grassField.place(new Animal(grassField, new Vector2d(8,15)));
-        System.out.println(grassField.toString());
-
-    }
-
 }

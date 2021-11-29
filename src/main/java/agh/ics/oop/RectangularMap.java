@@ -39,7 +39,7 @@ public class RectangularMap extends AbstractWorldMap{
 
     @Override
     public boolean place(Animal animal) {
-        if(!isInside(animal.getPosition())){ return false; }
+        if(!isInside(animal.getPosition())){ throw new IllegalArgumentException("Position: ("+animal.getPosition().x + "," + animal.getPosition().y + ") is taken."); }
         return super.place(animal);
     }
 
@@ -58,15 +58,6 @@ public class RectangularMap extends AbstractWorldMap{
     protected int[] findCorner(){
         int[] arr = {0, 0, this.width - 1, this.height - 1};
         return arr;
-    }
-
-    public static void main(String[] args) {
-        RectangularMap rectangularMap = new RectangularMap(5,5);
-        rectangularMap.place(new Animal(rectangularMap));
-        rectangularMap.place(new Animal(rectangularMap));
-        rectangularMap.place(new Animal(rectangularMap, new Vector2d(0,0)));
-        rectangularMap.place(new Animal(rectangularMap, new Vector2d(1,4)));
-        System.out.println(rectangularMap.toString());
     }
 
 }

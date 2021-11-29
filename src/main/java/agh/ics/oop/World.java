@@ -13,7 +13,7 @@ import static java.lang.System.setOut;
 public class World {
 
     public static void main(String[] args) {
-
+        try {
 /*
         Animal animal = new Animal();
         out.println(animal.toString());
@@ -31,14 +31,14 @@ public class World {
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();*/
 
-        String[] move2 = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
-        MoveDirection[] moveDirections = OptionsParser.parse(move2);
-        IWorldMap map2 = new GrassField(10);
-        Vector2d[] positions2 = { new Vector2d(2,2), new Vector2d(3,4)};
-        IEngine engine2 = new SimulationEngine(moveDirections, map2, positions2);
-        //out.println(map2);
-        engine2.run();
-        //out.println(map2);
+            String[] move2 = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+            MoveDirection[] moveDirections = OptionsParser.parse(move2);
+            IWorldMap map2 = new GrassField(10);
+            Vector2d[] positions2 = {new Vector2d(2, 2), new Vector2d(3, 4)};
+            IEngine engine2 = new SimulationEngine(moveDirections, map2, positions2);
+            //out.println(map2);
+            engine2.run();
+            //out.println(map2);
 
         /*Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
@@ -79,6 +79,40 @@ public class World {
        /* System.out.println("Start");
         run(args);
         System.out.println("Stop");*/
+        }
+        catch(IllegalArgumentException ex){
+            out.println(ex.getMessage());
+            return;
+        }
+    }
+
+    public static MoveDirection[] convertArgs(String[] arr){
+        MoveDirection[] tab = new MoveDirection[arr.length];
+        int i = 0;
+        for(String str: arr){
+            switch(str){
+                case "f":
+                case "forward":
+                    tab[i] = MoveDirection.FORWARD;
+                    break;
+                case "b":
+                case "backward":
+                    tab[i] = MoveDirection.BACKWARD;
+                    break;
+                case "r":
+                case "right":
+                    tab[i] = MoveDirection.RIGHT;
+                    break;
+                case "l":
+                case "left":
+                    tab[i] = MoveDirection.LEFT;
+                    break;
+                default:
+                    throw new IllegalArgumentException(str + " is not legal move specification");
+            }
+            i++;
+        }
+        return tab;
     }
 
     public static void run(String[] arr){
