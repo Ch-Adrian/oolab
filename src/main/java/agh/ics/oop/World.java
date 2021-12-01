@@ -31,10 +31,10 @@ public class World {
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();*/
 
-            String[] move2 = new String[]{"f", "b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
+            String[] move2 = new String[]{"f","rty" ,"b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
             MoveDirection[] moveDirections = OptionsParser.parse(move2);
             IWorldMap map2 = new GrassField(10);
-            Vector2d[] positions2 = {new Vector2d(2, 2), new Vector2d(3, 4)};
+            Vector2d[] positions2 = {new Vector2d(2, 2), new Vector2d(2, 2)};
             IEngine engine2 = new SimulationEngine(moveDirections, map2, positions2);
             //out.println(map2);
             engine2.run();
@@ -86,34 +86,6 @@ public class World {
         }
     }
 
-    public static MoveDirection[] convertArgs(String[] arr){
-        MoveDirection[] tab = new MoveDirection[arr.length];
-        int i = 0;
-        for(String str: arr){
-            switch(str){
-                case "f":
-                case "forward":
-                    tab[i] = MoveDirection.FORWARD;
-                    break;
-                case "b":
-                case "backward":
-                    tab[i] = MoveDirection.BACKWARD;
-                    break;
-                case "r":
-                case "right":
-                    tab[i] = MoveDirection.RIGHT;
-                    break;
-                case "l":
-                case "left":
-                    tab[i] = MoveDirection.LEFT;
-                    break;
-                default:
-                    throw new IllegalArgumentException(str + " is not legal move specification");
-            }
-            i++;
-        }
-        return tab;
-    }
 
     public static void run(String[] arr){
         System.out.println("Zwierzak idzie do przodu");

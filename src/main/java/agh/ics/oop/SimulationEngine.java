@@ -13,11 +13,9 @@ public class SimulationEngine implements IEngine{
         this.map = map;
         this.moveDirections = tab;
         for(int i = 0; i<vecTab.length; i++){
-            if(!map.isOccupied(vecTab[i])){
                 Animal a = new Animal(map, vecTab[i]);
                 arrayAni.add(a);
                 map.place(a);
-            }
         }
     }
 
