@@ -40,6 +40,19 @@ public class World {
             engine2.run();
             //out.println(map2);
 
+/*
+            String[] move2 = new String[]{"f", "f", "f", "f"};
+            MoveDirection[] moveDirections = OptionsParser.parse(move2);
+            GrassField gF = new GrassField(10);
+            IWorldMap map2 = gF;
+            Vector2d[] positions2 = {new Vector2d(2, 2), new Vector2d(3, 3)};
+            IEngine engine2 = new SimulationEngine(moveDirections, map2, positions2);
+            out.println(map2.toString());
+            engine2.run();
+            out.println(map2.toString());
+*/
+
+
         /*Vector2d position1 = new Vector2d(1,2);
         System.out.println(position1);
         Vector2d position2 = new Vector2d(-2,1);

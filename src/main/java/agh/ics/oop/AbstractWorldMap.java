@@ -7,8 +7,8 @@ import java.util.Map;
 
 public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObserver{
 
-    //protected ArrayList<Animal> animals = new ArrayList<>();
     protected Map<Vector2d, Animal> animals = new HashMap<>();
+    protected MapBoundary mapBoundary = new MapBoundary();
 
     @Override
     public boolean canMoveTo(Vector2d position){
@@ -24,7 +24,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             throw new IllegalArgumentException("Position: ("+animal.getPosition().x + "," + animal.getPosition().y + ") is taken.");
         }
         animals.put(animal.getPosition(), animal);
+        mapBoundary.addAnimal(animal);
         animal.addObserver(this);
+        animal.addObserver(mapBoundary);
         return true;
     }
 

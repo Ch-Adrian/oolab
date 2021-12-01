@@ -8,7 +8,6 @@ import java.util.Random;
 public class GrassField extends AbstractWorldMap{
 
     private int n;
-    //private ArrayList<Grass> grasses = new ArrayList<>();
     private Map<Vector2d, Grass> grasses = new HashMap<>();
 
     public GrassField(int num){
@@ -46,47 +45,18 @@ public class GrassField extends AbstractWorldMap{
             int _x = Math.abs(rand.nextInt())%a;
             int _y = Math.abs(rand.nextInt())%a;
             if( checkPresence(_x, _y) ) continue;
-            grasses.put(new Vector2d(_x, _y), new Grass(new Vector2d(_x, _y)));
+            Grass g = new Grass(new Vector2d(_x, _y));
+            grasses.put(new Vector2d(_x, _y), g);
+            mapBoundary.addGrass(g);
         }
     }
 
     protected int[] findCorner(){
-        Vector2d lower = new Vector2d(grasses.get(0).getPosition().x, grasses.get(0).getPosition().y);
-        Vector2d higher = new Vector2d(grasses.get(0).getPosition().x, grasses.get(0).getPosition().y);
-        int lowest_x = lower.x;
-        int lowest_y = lower.y;
-        int highest_x = higher.x;
-        int highest_y = higher.y;
+        int lowest_x = mapBoundary.getFirstX();
+        int lowest_y = mapBoundary.getFirstY();
+        int highest_x = mapBoundary.getLastX();
+        int highest_y = mapBoundary.getLastY();
 
-        for(Grass g: grasses.values()){
-            if(g.getPosition().x < lowest_x){
-                lowest_x = g.getPosition(). x;
-            }
-            if(g.getPosition().x > highest_x){
-                highest_x = g.getPosition().x;
-            }
-            if(g.getPosition().y < lowest_y){
-                lowest_y = g.getPosition().y;
-            }
-            if(g.getPosition().y > highest_y){
-                highest_y = g.getPosition().y;
-            }
-        }
-
-        for(Animal g: animals.values()){
-            if(g.getPosition().x < lowest_x){
-                lowest_x = g.getPosition(). x;
-            }
-            if(g.getPosition().x > highest_x){
-                highest_x = g.getPosition().x;
-            }
-            if(g.getPosition().y < lowest_y){
-                lowest_y = g.getPosition().y;
-            }
-            if(g.getPosition().y > highest_y){
-                highest_y = g.getPosition().y;
-            }
-        }
         int[] arr = {lowest_x, lowest_y, highest_x, highest_y};
         return arr;
     }
