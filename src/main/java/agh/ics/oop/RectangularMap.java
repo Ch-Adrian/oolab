@@ -55,7 +55,7 @@ public class RectangularMap extends AbstractWorldMap{
         return super.objectAt(position);
     }
 
-    protected int[] findCorner(){
+    public int[] findCorner(){
         int[] arr = {0, 0, this.width - 1, this.height - 1};
         return arr;
     }
