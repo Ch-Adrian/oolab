@@ -1,11 +1,22 @@
 package agh.ics.oop;
 
-import java.util.Comparator;
-import java.util.LinkedHashSet;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class MapBoundary implements IPositionChangeObserver{
+
+    private class FieldElement{
+        public Animal animal;
+        public Grass grass;
+
+        FieldElement(Animal a){
+            animal = a;
+        }
+
+        FieldElement(Grass g){
+            grass = g;
+        }
+
+    }
 
     private class CompX implements Comparator<Vector2d> {
 
@@ -45,46 +56,94 @@ public class MapBoundary implements IPositionChangeObserver{
         }
     }
 
-    private TreeMap<Vector2d, Animal> setX = new TreeMap<>(new CompX());
-    private TreeMap<Vector2d, Animal> setY = new TreeMap<>(new CompY());
-    private TreeMap<Vector2d, Grass> setXG = new TreeMap<>(new CompX());
-    private TreeMap<Vector2d, Grass> setYG = new TreeMap<>(new CompY());
+    private TreeMap<Vector2d, FieldElement> setX = new TreeMap<>(new CompX());
+    private TreeMap<Vector2d, FieldElement> setY = new TreeMap<>(new CompY());
+
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
-        Animal a =  setX.get(oldPosition);
-        setX.put(newPosition, a);
-        setX.remove(oldPosition);
+        FieldElement fieldElement = setX.get(oldPosition);
+        FieldElement fieldElement2;
 
-        a = setY.get(oldPosition);
-        setY.put(newPosition, a);
-        setY.remove(oldPosition);
+        if(setX.containsKey(newPosition)) {
+            fieldElement2 = setX.get(newPosition);
+            fieldElement2.animal = fieldElement.animal;
+        }
+        else{
+            fieldElement2 = new FieldElement(fieldElement.animal);
+            setX.put(newPosition, fieldElement2);
+        }
+        fieldElement.animal = null;
+
+        fieldElement = setY.get(oldPosition);
+
+        if(setY.containsKey(newPosition)) {
+            fieldElement2 = setY.get(newPosition);
+            fieldElement2.animal = fieldElement.animal;
+        }
+        else{
+            fieldElement2 = new FieldElement(fieldElement.animal);
+            setY.put(newPosition, fieldElement2);
+        }
+        fieldElement.animal = null;
     }
 
     public void addAnimal(Animal a){
-        setX.put(a.getPosition(), a);
-        setY.put(a.getPosition(), a);
+        FieldElement fieldElement;
+        if(setX.containsKey(a.getPosition())){
+            fieldElement = setX.get(a.getPosition());
+            fieldElement.animal = a;
+        }
+        else{
+            fieldElement = new FieldElement(a);
+            setX.put(a.getPosition(), fieldElement);
+        }
+
+        if(setY.containsKey(a.getPosition())){
+            fieldElement = setY.get(a.getPosition());
+            fieldElement.animal = a;
+        }
+        else{
+            fieldElement = new FieldElement(a);
+            setY.put(a.getPosition(), fieldElement);
+        }
     }
 
     public void addGrass(Grass a){
-        setXG.put(a.getPosition(), a);
-        setYG.put(a.getPosition(), a);
+        FieldElement fieldElement;
+        if(setX.containsKey(a.getPosition())){
+            fieldElement = setX.get(a.getPosition());
+            fieldElement.grass = a;
+        }
+        else{
+            fieldElement = new FieldElement(a);
+            setX.put(a.getPosition(), fieldElement);
+        }
+
+        if(setY.containsKey(a.getPosition())){
+            fieldElement = setY.get(a.getPosition());
+            fieldElement.grass = a;
+        }
+        else{
+            fieldElement = new FieldElement(a);
+            setY.put(a.getPosition(), fieldElement);
+        }
     }
 
     public int getFirstX(){
-        return Math.min(setX.firstKey().x, setXG.firstKey().x);
+        return setX.firstKey().x;
     }
 
     public int getFirstY(){
-        return Math.min(setY.firstKey().y, setYG.firstKey().y);
+        return setY.firstKey().y;
     }
 
     public int getLastX(){
-        return Math.max(setX.lastKey().x, setXG.lastKey().x);
+        return setX.lastKey().x;
     }
 
     public int getLastY(){
-        return Math.max(setY.lastKey().y, setYG.lastKey().y);
+        return setY.lastKey().y;
     }
 
 }
