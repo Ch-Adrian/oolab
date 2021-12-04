@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,6 +17,8 @@ public class World {
 
     public static void main(String[] args) {
         try {
+
+            Application.launch(App.class, args);
 /*
         Animal animal = new Animal();
         out.println(animal.toString());
@@ -30,7 +35,7 @@ public class World {
         Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
         IEngine engine = new SimulationEngine(directions, map, positions);
         engine.run();*/
-
+/*
             String[] move2 = new String[]{"f","rty" ,"b", "r", "l", "f", "f", "r", "r", "f", "f", "f", "f", "f", "f", "f", "f"};
             MoveDirection[] moveDirections = OptionsParser.parse(move2);
             IWorldMap map2 = new GrassField(10);
@@ -39,8 +44,8 @@ public class World {
             //out.println(map2);
             engine2.run();
             //out.println(map2);
-
-/*
+            */
+            /*
             String[] move2 = new String[]{"f", "f", "f", "f"};
             MoveDirection[] moveDirections = OptionsParser.parse(move2);
             GrassField gF = new GrassField(10);
