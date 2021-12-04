@@ -43,7 +43,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         return animals.get(position);
     }
 
-    protected abstract int[] findCorner();
+    public abstract int[] findCorner();
 
     @Override
     public String toString(){

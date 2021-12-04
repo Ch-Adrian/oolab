@@ -51,7 +51,7 @@ public class GrassField extends AbstractWorldMap{
         }
     }
 
-    protected int[] findCorner(){
+    public int[] findCorner(){
         int lowest_x = mapBoundary.getFirstX();
         int lowest_y = mapBoundary.getFirstY();
         int highest_x = mapBoundary.getLastX();
