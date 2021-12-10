@@ -1,6 +1,6 @@
 package agh.ics.oop;
 
-public class Grass {
+public class Grass implements IMapElement{
 
     private Vector2d pos;
 
@@ -17,6 +17,10 @@ public class Grass {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("*");
         return stringBuilder.toString();
+    }
+
+    public String getResource(){
+        return "src/main/resources/grass.png";
     }
 
 }

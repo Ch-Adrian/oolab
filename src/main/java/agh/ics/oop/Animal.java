@@ -3,7 +3,7 @@ package agh.ics.oop;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animal {
+public class Animal implements IMapElement{
 
     private MapDirection orientation = MapDirection.NORTH;
     private Vector2d position = new Vector2d(2,2);
@@ -27,6 +27,17 @@ public class Animal {
         this.map = map;
         this.position = initialPosition;
         this.orientation = mD;
+    }
+
+    public String getResource(){
+        StringBuilder stringBuilder = new StringBuilder();
+        switch(orientation){
+            case NORTH -> stringBuilder.append("src/main/resources/up.png");
+            case EAST -> stringBuilder.append("src/main/resources/right.png");
+            case WEST -> stringBuilder.append("src/main/resources/left.png");
+            case SOUTH -> stringBuilder.append("src/main/resources/down.png");
+        }
+        return stringBuilder.toString();
     }
 
     boolean isAt(Vector2d position){
