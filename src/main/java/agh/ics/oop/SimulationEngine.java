@@ -19,6 +19,15 @@ public class SimulationEngine implements IEngine, Runnable{
         }
     }
 
+    public SimulationEngine(IWorldMap map, Vector2d[] vecTab){
+        this.map = map;
+        for(int i = 0; i<vecTab.length; i++){
+            Animal a = new Animal(map, vecTab[i]);
+            arrayAni.add(a);
+            map.place(a);
+        }
+    }
+
     @Override
     public void run() {
 
@@ -42,4 +51,7 @@ public class SimulationEngine implements IEngine, Runnable{
 
     }
 
+    public void setMoveDirections(MoveDirection[] moveDirections) {
+        this.moveDirections = moveDirections;
+    }
 }

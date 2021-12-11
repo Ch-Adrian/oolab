@@ -14,8 +14,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.awt.font.GraphicAttribute;
@@ -35,6 +37,8 @@ public class App extends Application implements IPositionChangeObserver{
     private VBox vBox;
     private HBox hBox;
     private Button buttonRunEngine;
+    private Label labelDelay;
+    private TextField textField;
 
     private MoveDirection[] moveDirections;
     private IWorldMap map;
@@ -49,13 +53,20 @@ public class App extends Application implements IPositionChangeObserver{
         moveDelay = 300;
 
         //Creating button Run engine
-        buttonRunEngine = new Button("Run engine");
+        buttonRunEngine = new Button("Start");
         buttonRunEngine.setOnAction((ActionEvent event)->{
             runEngine(primaryStage);
         });
+        labelDelay = new Label("Delay(in miliseconds):");
+        labelDelay.setFont(new Font(16));
+        textField = new TextField("300");
         hBox = new HBox();
         hBox.setPadding(new Insets(0, 10,20,30));
         hBox.getChildren().add(buttonRunEngine);
+        hBox.getChildren().add(labelDelay);
+        hBox.getChildren().add(textField);
+        hBox.setSpacing(10);
+
 
         setMap();
         setFields();
@@ -63,8 +74,6 @@ public class App extends Application implements IPositionChangeObserver{
         Scene scene = new Scene(vBox);
         primaryStage.setScene(scene);
         primaryStage.show();
-        thread.start();
-
     }
 
     private void setMap(){
@@ -156,14 +165,25 @@ public class App extends Application implements IPositionChangeObserver{
         map = abstractWorldMap;
         Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3)};
         engine = new SimulationEngine(moveDirections, map, positions);
-        thread = new Thread(engine);
 
     }
 
     private void runEngine(Stage primaryStage){
-        /*buttonRunEngine.setDisable(true);
-        Thread thread = new Thread(engine);
+        buttonRunEngine.setDisable(true);
+        String text = textField.getText();
+
+        try {
+            if (text != "") moveDelay = Integer.parseInt(text);
+            else{
+                moveDelay = 300;
+            }
+        } catch(Exception e){
+            moveDelay = 300;
+        }
+
+        thread = new Thread(engine);
         thread.start();
+
         new Thread(()->{
             try {
                 thread.join();
@@ -171,7 +191,7 @@ public class App extends Application implements IPositionChangeObserver{
                 System.out.println(e.getMessage());
             }
            buttonRunEngine.setDisable(false);
-        }).start();*/
+        }).start();
     }
 
     @Override
