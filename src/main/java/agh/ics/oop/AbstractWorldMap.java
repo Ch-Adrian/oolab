@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.App;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -9,6 +11,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     protected Map<Vector2d, Animal> animals = new HashMap<>();
     protected MapBoundary mapBoundary = new MapBoundary();
+    public App app;
 
     @Override
     public boolean canMoveTo(Vector2d position){
@@ -27,6 +30,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
         mapBoundary.addAnimal(animal);
         animal.addObserver(this);
         animal.addObserver(mapBoundary);
+        if(app != null) {
+            animal.addObserver(app);
+        }
         return true;
     }
 

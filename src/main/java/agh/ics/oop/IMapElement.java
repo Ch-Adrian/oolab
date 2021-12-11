@@ -6,5 +6,6 @@ public interface IMapElement {
     public String toString();
 
     public String getResource();
+    public String getNamePosition();
 
 }

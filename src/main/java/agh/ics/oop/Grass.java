@@ -20,7 +20,11 @@ public class Grass implements IMapElement{
     }
 
     public String getResource(){
-        return "src/main/resources/grass.png";
+        return "file:src/main/resources/grass.png";
+    }
+
+    public String getNamePosition(){
+        return "Trawa";
     }
 
 }

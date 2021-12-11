@@ -32,11 +32,23 @@ public class Animal implements IMapElement{
     public String getResource(){
         StringBuilder stringBuilder = new StringBuilder();
         switch(orientation){
-            case NORTH -> stringBuilder.append("src/main/resources/up.png");
-            case EAST -> stringBuilder.append("src/main/resources/right.png");
-            case WEST -> stringBuilder.append("src/main/resources/left.png");
-            case SOUTH -> stringBuilder.append("src/main/resources/down.png");
+            case NORTH -> stringBuilder.append("file:src/main/resources/up.png");
+            case EAST -> stringBuilder.append("file:src/main/resources/right.png");
+            case WEST -> stringBuilder.append("file:src/main/resources/left.png");
+            case SOUTH -> stringBuilder.append("file:src/main/resources/down.png");
         }
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public String getNamePosition() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Z ");
+        stringBuilder.append("(");
+        stringBuilder.append(this.position.x);
+        stringBuilder.append(",");
+        stringBuilder.append(this.position.y);
+        stringBuilder.append(")");
         return stringBuilder.toString();
     }
 
@@ -98,6 +110,7 @@ public class Animal implements IMapElement{
     }
 
     private void positionChanged(Vector2d oldPosition, Vector2d newPosition){
+        //System.out.println(Thread.currentThread().getName());
         for(IPositionChangeObserver observer: observerList){
             observer.positionChanged(oldPosition, newPosition);
         }
