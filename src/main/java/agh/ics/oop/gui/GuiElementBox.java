@@ -13,13 +13,30 @@ public class GuiElementBox {
     private ImageView imgView;
     private Label label;
     private VBox vBox;
+    private MyVBox myVBox;
+
+    class MyVBox extends VBox{
+        private String o;
+        @Override
+        public String toString() {
+            return o;
+        }
+
+        public void setO(String o) {
+            this.o = o;
+        }
+    }
 
     public GuiElementBox(IMapElement e){
 
         if(e == null){
-            this.vBox = new VBox();
-            this.vBox.setPrefWidth(20);
-            this.vBox.setPrefHeight(20);
+            this.myVBox = new MyVBox();
+            //this.vBox = new VBox();
+            //this.vBox.setPrefWidth(20);
+            //this.vBox.setPrefHeight(20);
+            this.myVBox.setPrefHeight(20);
+            this.myVBox.setPrefWidth(20);
+            this.myVBox.setO("Empty");
         }
         else {
             this.img = new Image(e.getResource());
@@ -27,15 +44,23 @@ public class GuiElementBox {
             this.imgView.setFitHeight(20);
             this.imgView.setFitWidth(20);
             label = new Label(e.getNamePosition());
+            myVBox = new MyVBox();
+            myVBox.getChildren().add(imgView);
+            myVBox.getChildren().add(label);
+            myVBox.alignmentProperty().setValue(Pos.CENTER);
+            myVBox.setO(e.getNamePosition());
+            /*
             vBox = new VBox();
             vBox.getChildren().add(imgView);
             vBox.getChildren().add(label);
             vBox.alignmentProperty().setValue(Pos.CENTER);
+            */
+
         }
     }
 
     public VBox getVBox(){
-        return this.vBox;
+        return this.myVBox;
     }
 
 }

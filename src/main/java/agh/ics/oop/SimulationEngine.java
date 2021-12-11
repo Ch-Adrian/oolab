@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 import java.util.ArrayList;
 
-public class SimulationEngine implements IEngine{
+public class SimulationEngine implements IEngine, Runnable{
 
     private ArrayList<Animal> arrayAni = new ArrayList<>();
 
@@ -38,7 +38,6 @@ public class SimulationEngine implements IEngine{
                     inst.move(MoveDirection.RIGHT);
                 }
             }
-
         }
 
     }

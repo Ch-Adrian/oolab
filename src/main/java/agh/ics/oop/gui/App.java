@@ -38,10 +38,36 @@ public class App extends Application implements IPositionChangeObserver{
 
     private MoveDirection[] moveDirections;
     private IWorldMap map;
-    private IEngine engine;
+    private Runnable engine;
+
+    private int moveDelay;
+    private Thread thread;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        moveDelay = 300;
+
+        //Creating button Run engine
+        buttonRunEngine = new Button("Run engine");
+        buttonRunEngine.setOnAction((ActionEvent event)->{
+            runEngine(primaryStage);
+        });
+        hBox = new HBox();
+        hBox.setPadding(new Insets(0, 10,20,30));
+        hBox.getChildren().add(buttonRunEngine);
+
+        setMap();
+        setFields();
+
+        Scene scene = new Scene(vBox);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        thread.start();
+
+    }
+
+    private void setMap(){
 
         //Setting size of map
         corners = abstractWorldMap.findCorner();
@@ -50,7 +76,6 @@ public class App extends Application implements IPositionChangeObserver{
 
         //Setting variables
         vBox = new VBox();
-        hBox = new HBox();
         pane = new GridPane();
         pane.setGridLinesVisible(true);
         pane.setPadding(new Insets(30));
@@ -68,7 +93,6 @@ public class App extends Application implements IPositionChangeObserver{
             guiElementBox[i] = new GuiElementBox[height];
             for(int j = 1; j<height; j++){
                 guiElementBox[i][j] = new GuiElementBox((IMapElement) abstractWorldMap.objectAt(new Vector2d(corners[0]+i-1,corners[3] - j + 1)));
-                //guiElementBox[i][j] = new GuiElementBox((IMapElement) abstractWorldMap.objectAt(new Vector2d(corners[0]+i-1,corners[1]+j-1)));
             }
         }
 
@@ -92,22 +116,9 @@ public class App extends Application implements IPositionChangeObserver{
             labels[i][0].setText(String.valueOf(corners[0]+i-1));
         }
 
-        //Creating button Run engine
-        buttonRunEngine = new Button("Run engine");
-        buttonRunEngine.setOnAction((ActionEvent event)->{
-            runEngine();
-        });
-        hBox.setPadding(new Insets(0, 10,20,30));
-        hBox.getChildren().add(buttonRunEngine);
-
         vBox.getChildren().add(pane);
         vBox.getChildren().add(hBox);
 
-        setFields();
-
-        Scene scene = new Scene(vBox);
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
 
     private void setFields(){
@@ -115,17 +126,10 @@ public class App extends Application implements IPositionChangeObserver{
         Node o = pane.getChildren().get(0);
         pane.getChildren().clear();
         pane.getChildren().add(o);
-        //pane.getChildren().clear();
-        //pane.setGridLinesVisible(true);
+
         // Filling map
         for(int i = 1; i<width; i++){
             for(int j = 1; j<height; j++){
-                //graphics[i][j].setText("");
-                //Vector2d vec = new Vector2d(corners[0]+i-1,corners[3]-j+1);
-                //if(abstractWorldMap.isOccupied(vec)) {
-                //graphics[i][j] = guiElementBox[i][j].getVBox();
-                    //labels[i][j].setText(abstractWorldMap.objectAt(vec).toString());
-                //}
                 pane.add(guiElementBox[i][j].getVBox(), i, j);
             }
 
@@ -138,10 +142,7 @@ public class App extends Application implements IPositionChangeObserver{
             pane.add(labels[i][0], i, 0);
         }
         pane.add(labels[0][0], 0, 0);
-
-
-        //System.out.println(pane.getChildren().get(21));
-        //System.out.println(pane.getChildren().size());
+        //System.out.println("dizla");
     }
 
     @Override
@@ -155,20 +156,37 @@ public class App extends Application implements IPositionChangeObserver{
         map = abstractWorldMap;
         Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3)};
         engine = new SimulationEngine(moveDirections, map, positions);
+        thread = new Thread(engine);
+
     }
 
-    private void runEngine(){
-
-        //pane.getChildren().remove(1,2);
-        //engine.run();
-        //setFields();
+    private void runEngine(Stage primaryStage){
+        /*buttonRunEngine.setDisable(true);
+        Thread thread = new Thread(engine);
+        thread.start();
+        new Thread(()->{
+            try {
+                thread.join();
+            } catch(InterruptedException e){
+                System.out.println(e.getMessage());
+            }
+           buttonRunEngine.setDisable(false);
+        }).start();*/
     }
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         int i = oldPosition.getX();
         int j = oldPosition.getY();
-        guiElementBox[newPosition.getX()-corners[0]+1][newPosition.getY()-corners[1]+1] =  new GuiElementBox((IMapElement) abstractWorldMap.objectAt(new Vector2d(newPosition.getX(),newPosition.getY())));
-        guiElementBox[i-corners[0]+1][j-corners[1]+1] = new GuiElementBox((IMapElement) abstractWorldMap.objectAt(new Vector2d(i,j)));
+        guiElementBox[newPosition.getX()-corners[0]+1][height -(newPosition.getY()-corners[1]+1)] =  new GuiElementBox((IMapElement) abstractWorldMap.objectAt(new Vector2d(newPosition.getX(),newPosition.getY())));
+        guiElementBox[i-corners[0]+1][height-(j-corners[1]+1)] = new GuiElementBox((IMapElement) abstractWorldMap.objectAt(new Vector2d(i,j)));
+        //Platform.runLater(this::setFields);
+        //new Thread(this::setFields).run();
+        Platform.runLater(this::setFields);
+        try{
+            Thread.sleep(moveDelay);
+        } catch (Exception e){
+            System.out.println("Simulation stopped");
+        }
     }
 }
